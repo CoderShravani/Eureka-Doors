@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 360" width="100%" height="100%">
+  <!-- Background Canvas -->
+  <defs>
+    <linearGradient id="pinkBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff0f3" />
+      <stop offset="25%" stop-color="#ffdeeb" />
+      <stop offset="70%" stop-color="#fbcfe8" />
+      <stop offset="100%" stop-color="#f472b6" />
+    </linearGradient>
+
+    <!-- Sweet Pea Flower Def -->
+    <g id="sweetPea">
+      <path d="M 0,0 C -6,-10 -14,-6 -12,4 C -10,12 0,16 0,16 C 0,16 10,12 12,4 C 14,-6 6,-10 0,0 Z" fill="#f43f5e" opacity="0.85"/>
+      <path d="M 0,-2 C -4,-8 -9,-4 -7,2 C -5,8 0,12 0,12 C 0,12 5,8 7,2 C 9,-4 4,-8 0,-2 Z" fill="#fb7185"/>
+      <path d="M 0,1 C -2,-3 -5,-1 -4,2 C -3,5 0,7 0,7 C 0,7 3,5 4,2 C 5,-1 2,-3 0,1 Z" fill="#fef08a" opacity="0.9"/>
+    </g>
+
+    <g id="bokeh">
+      <circle cx="0" cy="0" r="10" fill="#ffffff" opacity="0.35"/>
+      <circle cx="0" cy="0" r="6" fill="#ffffff" opacity="0.5"/>
+    </g>
+  </defs>
+
+  <!-- Door Frame Outer Edge -->
+  <rect x="0" y="0" width="160" height="360" fill="#2d150b" />
+  
+  <!-- Main Door Surface -->
+  <rect x="4" y="2" width="152" height="356" fill="url(#pinkBg)" />
+
+  <!-- Left Inner Burgundy Accent Line -->
+  <line x1="6" y1="2" x2="6" y2="358" stroke="#be123c" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Bokeh Bubbles -->
+  <use href="#bokeh" x="30" y="60" transform="scale(0.8)"/>
+  <use href="#bokeh" x="130" y="90" transform="scale(1.2)"/>
+  <use href="#bokeh" x="25" y="220" transform="scale(1.5)"/>
+  <use href="#bokeh" x="140" y="260" transform="scale(1)"/>
+  <use href="#bokeh" x="40" y="310" transform="scale(1.3)"/>
+  <use href="#bokeh" x="110" y="330" transform="scale(0.9)"/>
+
+  <!-- Top Right Logo "eurekai" -->
+  <g transform="translate(112, 18)">
+    <text x="0" y="0" font-family="sans-serif" font-weight="900" font-size="11" fill="#4338ca" letter-spacing="-0.5">eurek<tspan fill="#818cf8">a</tspan><tspan fill="#a855f7">i</tspan></text>
+  </g>
+
+  <!-- Floral Branches & Vines (Top Right) -->
+  <g stroke="#84cc16" stroke-width="1" fill="none">
+    <path d="M 160,20 C 120,25 90,10 70,30 C 50,50 30,35 10,25" />
+    <path d="M 140,25 C 110,40 100,60 80,75" />
+  </g>
+  
+  <!-- Top Flowers -->
+  <use href="#sweetPea" x="135" y="22" transform="rotate(-20 135 22) scale(1.1)"/>
+  <use href="#sweetPea" x="105" y="18" transform="rotate(15 105 18) scale(0.9)"/>
+  <use href="#sweetPea" x="80" y="32" transform="rotate(-35 80 32) scale(1.2)"/>
+  <use href="#sweetPea" x="115" y="45" transform="rotate(40 115 45) scale(1)"/>
+  <use href="#sweetPea" x="90" y="65" transform="rotate(-10 90 65) scale(0.85)"/>
+  <use href="#sweetPea" x="40" y="28" transform="rotate(25 40 28) scale(1)"/>
+
+  <!-- Bottom Floral Vines -->
+  <g stroke="#84cc16" stroke-width="1" fill="none">
+    <path d="M 0,340 C 40,320 60,350 90,325 C 120,300 130,330 160,310" />
+  </g>
+  <use href="#sweetPea" x="25" y="328" transform="rotate(45 25 328) scale(1)"/>
+  <use href="#sweetPea" x="55" y="338" transform="rotate(-20 55 338) scale(1.1)"/>
+  <use href="#sweetPea" x="85" y="320" transform="rotate(30 85 320) scale(0.9)"/>
+
+  <!-- Decorative White Swirl Lines -->
+  <path d="M 10,120 Q 50,80 140,150 T 80,240" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.5"/>
+  <path d="M 150,180 Q 90,220 20,290" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.5"/>
+
+  <!-- CENTRAL CHARACTER: Minnie Style Mouse -->
+  <g transform="translate(80, 185)">
+    <!-- Ears -->
+    <circle cx="-28" cy="-80" r="24" fill="#1c1917" />
+    <circle cx="28" cy="-80" r="24" fill="#1c1917" />
+
+    <!-- Head Base -->
+    <ellipse cx="0" cy="-52" rx="28" ry="26" fill="#1c1917" />
+    
+    <!-- Face Contour (Peach/Cream) -->
+    <path d="M -22,-62 C -26,-42 -14,-32 0,-32 C 14,-32 26,-42 22,-62 C 16,-72 0,-72 -22,-62 Z" fill="#fed7aa" />
+    <ellipse cx="-10" cy="-56" rx="10" ry="14" fill="#fed7aa" />
+    <ellipse cx="10" cy="-56" rx="10" ry="14" fill="#fed7aa" />
+    <ellipse cx="0" cy="-44" rx="18" ry="12" fill="#fed7aa" />
+
+    <!-- Eyes -->
+    <ellipse cx="-8" cy="-58" rx="4.5" ry="10" fill="#ffffff" />
+    <ellipse cx="8" cy="-58" rx="4.5" ry="10" fill="#ffffff" />
+    <ellipse cx="-6" cy="-56" rx="2.5" ry="6" fill="#1c1917" />
+    <ellipse cx="6" cy="-56" rx="2.5" ry="6" fill="#1c1917" />
+    <circle cx="-7" cy="-58" r="1" fill="#ffffff" />
+    <circle cx="5" cy="-58" r="1" fill="#ffffff" />
+    <!-- Eyelashes -->
+    <path d="M -11,-67 L -15,-72 M -8,-69 L -10,-75 M -5,-68 L -5,-74" stroke="#1c1917" stroke-width="1.2" />
+    <path d="M 11,-67 L 15,-72 M 8,-69 L 10,-75 M 5,-68 L 5,-74" stroke="#1c1917" stroke-width="1.2" />
+
+    <!-- Nose -->
+    <ellipse cx="0" cy="-46" rx="5" ry="3.5" fill="#1c1917" />
+
+    <!-- Smile -->
+    <path d="M -12,-42 Q 0,-32 12,-42" stroke="#1c1917" stroke-width="1.8" fill="none" stroke-linecap="round" />
+    <path d="M -6,-38 Q 0,-33 6,-38 Z" fill="#f43f5e" />
+
+    <!-- Big Pink Bow with Polka Dots -->
+    <g>
+      <!-- Left Loop -->
+      <path d="M -2,-85 C -22,-105 -45,-85 -20,-68 C -10,-60 -2,-80 -2,-85 Z" fill="#e11d48" stroke="#be123c" stroke-width="1"/>
+      <circle cx="-24" cy="-88" r="3" fill="#ffffff" />
+      <circle cx="-14" cy="-78" r="2.5" fill="#ffffff" />
+      <circle cx="-32" cy="-78" r="2.5" fill="#ffffff" />
+
+      <!-- Right Loop -->
+      <path d="M 2,-85 C 22,-105 45,-85 20,-68 C 10,-60 2,-80 2,-85 Z" fill="#e11d48" stroke="#be123c" stroke-width="1"/>
+      <circle cx="24" cy="-88" r="3" fill="#ffffff" />
+      <circle cx="14" cy="-78" r="2.5" fill="#ffffff" />
+      <circle cx="32" cy="-78" r="2.5" fill="#ffffff" />
+
+      <!-- Center Knot -->
+      <ellipse cx="0" cy="-80" rx="7" ry="6" fill="#be123c" />
+      <circle cx="0" cy="-80" r="2" fill="#ffffff" />
+    </g>
+
+    <!-- Body & Arms -->
+    <path d="M -12,-28 L -20,10 L 20,10 L 12,-28 Z" fill="#1c1917" />
+    
+    <!-- White Collar -->
+    <path d="M -12,-28 Q -6,-22 0,-28 Q 6,-22 12,-28 L 8,-22 L -8,-22 Z" fill="#ffffff" />
+
+    <!-- White Gloved Arms -->
+    <!-- Left arm on hip -->
+    <path d="M -14,-22 Q -28,-10 -22,2 Q -16,8 -12,-2" fill="#ffffff" stroke="#1c1917" stroke-width="1" />
+    <!-- Right arm -->
+    <path d="M 14,-22 Q 28,-10 22,2 Q 16,8 12,-2" fill="#ffffff" stroke="#1c1917" stroke-width="1" />
+
+    <!-- Pink Polka Dot Dress -->
+    <path d="M -14,-22 L -34,25 Q 0,38 34,25 L 14,-22 Z" fill="#e11d48" stroke="#be123c" stroke-width="1" />
+    
+    <!-- Polka Dots on Dress -->
+    <circle cx="-18" cy="-10" r="3" fill="#ffffff" />
+    <circle cx="0" cy="-12" r="3.5" fill="#ffffff" />
+    <circle cx="18" cy="-10" r="3" fill="#ffffff" />
+    <circle cx="-24" cy="8" r="3.5" fill="#ffffff" />
+    <circle cx="-8" cy="6" r="4" fill="#ffffff" />
+    <circle cx="10" cy="8" r="3.5" fill="#ffffff" />
+    <circle cx="24" cy="6" r="3" fill="#ffffff" />
+    <circle cx="-16" cy="20" r="3.5" fill="#ffffff" />
+    <circle cx="0" cy="22" r="4" fill="#ffffff" />
+    <circle cx="16" cy="20" r="3.5" fill="#ffffff" />
+
+    <!-- White Ruffle Hem under Dress -->
+    <path d="M -32,25 Q -24,32 -16,26 Q -8,32 0,26 Q 8,32 16,26 Q 24,32 32,25 L 30,29 Q 22,35 14,29 Q 6,35 -2,29 Q -10,35 -18,29 Q -26,35 -34,28 Z" fill="#ffffff" />
+
+    <!-- Legs (Black) -->
+    <rect x="-12" y="30" width="7" height="30" fill="#1c1917" rx="3" />
+    <rect x="5" y="30" width="7" height="30" fill="#1c1917" rx="3" />
+
+    <!-- Magenta Heels / Shoes -->
+    <!-- Left Shoe -->
+    <g transform="translate(-10, 58)">
+      <ellipse cx="0" cy="8" rx="16" ry="10" fill="#be123c" />
+      <path d="M -10,2 Q -2,-6 10,4 L 14,12 L -14,12 Z" fill="#9f1239" />
+      <!-- Heel Bow -->
+      <ellipse cx="-2" cy="0" rx="4" ry="2.5" fill="#f43f5e" />
+      <ellipse cx="4" cy="0" rx="4" ry="2.5" fill="#f43f5e" />
+      <circle cx="1" cy="0" r="1.5" fill="#ffffff" />
+    </g>
+
+    <!-- Right Shoe -->
+    <g transform="translate(10, 58)">
+      <ellipse cx="0" cy="8" rx="16" ry="10" fill="#be123c" />
+      <path d="M -10,2 Q -2,-6 10,4 L 14,12 L -14,12 Z" fill="#9f1239" />
+      <!-- Heel Bow -->
+      <ellipse cx="-2" cy="0" rx="4" ry="2.5" fill="#f43f5e" />
+      <ellipse cx="4" cy="0" rx="4" ry="2.5" fill="#f43f5e" />
+      <circle cx="1" cy="0" r="1.5" fill="#ffffff" />
+    </g>
+
+  </g>
+
+</svg>
