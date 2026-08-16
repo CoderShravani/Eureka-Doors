@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { MapPin, Phone, Mail, ChevronRight, Facebook, Twitter, Instagram, Linkedin, Send, Check } from 'lucide-react';
+import { showToast } from './ToastContainer';
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
@@ -16,10 +17,28 @@ export default function Footer({ onNavigate, onOpenConsultation }: FooterProps) 
     message: ''
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) return;
+
+    try {
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'Footer Quick Contact Inquiry',
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message
+        })
+      });
+    } catch (err) {
+      console.error(err);
+    }
+
     setFormSubmitted(true);
+    showToast('Your quick contact message has been sent successfully!', 'Message Sent');
     setTimeout(() => {
       setFormSubmitted(false);
       setFormData({ name: '', email: '', phone: '', message: '' });

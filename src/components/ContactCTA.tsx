@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, MessageSquare, Phone, Mail, ArrowRight, MapPin, ClipboardList } from 'lucide-react';
+import { showToast } from './ToastContainer';
 
 interface ContactCTAProps {
   isModalMode?: boolean;
@@ -20,16 +21,31 @@ export default function ContactCTA({ isModalMode = false, onCloseModal }: Contac
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) return;
     
     setIsSubmitting(true);
-    // Simulate API request
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'Consultation & Custom Order Request',
+          fullName: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          projectType: `Door Type: ${formData.doorType} | Estimated Qty: ${formData.quantity}`,
+          message: formData.requirements
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to send inquiry.');
+      }
+
       setIsSubmitted(true);
-      // Reset form after submission
+      showToast('Your consultation request has been submitted successfully!', 'Consultation Request Sent');
       setFormData({
         name: '',
         phone: '',
@@ -38,7 +54,12 @@ export default function ContactCTA({ isModalMode = false, onCloseModal }: Contac
         quantity: '2-10',
         requirements: ''
       });
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      alert('Unable to send message at this time. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

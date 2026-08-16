@@ -21,9 +21,13 @@ import Values from './components/Values';
 import Testimonials from './components/Testimonials';
 import ContactCTA from './components/ContactCTA';
 import ContactUs from './components/ContactUs';
+import Careers from './components/Careers';
+import BecomeADealer from './components/BecomeADealer';
 import Footer from './components/Footer';
+import ToastContainer from './components/ToastContainer';
+import SEOHead from './components/SEOHead';
 
-type PageView = 'home' | 'wooden-laminate-doors' | 'post-forming-doors' | 'wooden-flush-doors' | 'wooden-molded-doors' | 'pvc-panel-doors' | 'pvc-flush-doors' | 'theme-doors' | 'frames' | 'plywood' | 'dealer-network' | 'our-clients' | 'about-us' | 'contact';
+type PageView = 'home' | 'wooden-laminate-doors' | 'post-forming-doors' | 'wooden-flush-doors' | 'wooden-molded-doors' | 'pvc-panel-doors' | 'pvc-flush-doors' | 'theme-doors' | 'frames' | 'plywood' | 'dealer-network' | 'become-a-dealer' | 'our-clients' | 'careers' | 'about-us' | 'contact';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<PageView>('home');
@@ -148,6 +152,18 @@ export default function App() {
       return;
     }
 
+    // If navigating to Become a Dealer page specifically
+    if (
+      sectionId === 'become-a-dealer' ||
+      sectionId === 'dealer-application' ||
+      sectionId === 'dealership' ||
+      sectionId === 'become-a-dealer-page'
+    ) {
+      setCurrentView('become-a-dealer');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     // If navigating to Our Clients page specifically
     if (
       sectionId === 'our-clients' ||
@@ -155,6 +171,18 @@ export default function App() {
       sectionId === 'our-clients-page'
     ) {
       setCurrentView('our-clients');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // If navigating to Careers page specifically
+    if (
+      sectionId === 'careers' ||
+      sectionId === 'jobs' ||
+      sectionId === 'careers-page' ||
+      sectionId === 'career'
+    ) {
+      setCurrentView('careers');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -226,6 +254,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#faf9f6] text-stone-800 font-sans antialiased selection:bg-[#b38e5d]/35 selection:text-stone-900 scroll-smooth">
+      <SEOHead currentView={currentView} />
       
       {/* Sticky Header */}
       <Header onNavigate={handleScrollToSection} onOpenConsultation={handleOpenConsultation} />
@@ -414,6 +443,23 @@ export default function App() {
               <DealerNetwork 
                 onOpenConsultation={handleOpenConsultation} 
                 onNavigateHome={() => handleScrollToSection('home')}
+                onNavigate={handleScrollToSection}
+              />
+            </motion.div>
+          )}
+
+          {currentView === 'become-a-dealer' && (
+            <motion.div
+              key="become-a-dealer"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+            >
+              {/* Dedicated Separate Page View for Become an Authorised Dealer */}
+              <BecomeADealer 
+                onNavigateHome={() => handleScrollToSection('home')}
+                onNavigate={handleScrollToSection}
               />
             </motion.div>
           )}
@@ -430,6 +476,22 @@ export default function App() {
               <OurClients 
                 onOpenConsultation={handleOpenConsultation} 
                 onNavigateHome={() => handleScrollToSection('home')}
+              />
+            </motion.div>
+          )}
+
+          {currentView === 'careers' && (
+            <motion.div
+              key="careers"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+            >
+              {/* Dedicated Separate Page View for Careers */}
+              <Careers 
+                onNavigateHome={() => handleScrollToSection('home')}
+                onOpenConsultation={handleOpenConsultation}
               />
             </motion.div>
           )}
@@ -526,6 +588,9 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Toast Notification Container */}
+      <ToastContainer />
 
     </div>
   );

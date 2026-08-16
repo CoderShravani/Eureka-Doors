@@ -238,7 +238,6 @@ export default function Testimonials({ onOpenConsultation }: TestimonialsProps) 
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#b38e5d]/10 border border-[#b38e5d]/20 text-[#967448] text-xs font-bold uppercase tracking-widest mb-4"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#b38e5d]" />
             <span>VERIFIED CLIENT FEEDBACK</span>
           </motion.div>
 
@@ -530,7 +529,6 @@ export default function Testimonials({ onOpenConsultation }: TestimonialsProps) 
                             key={idx}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#b38e5d]/10 text-[#8c6a3e] rounded-xl text-xs font-bold border border-[#b38e5d]/20"
                           >
-                            <Sparkles className="w-3 h-3 text-[#b38e5d]" />
                             <span>{highlight}</span>
                           </span>
                         ))}
@@ -663,7 +661,7 @@ export default function Testimonials({ onOpenConsultation }: TestimonialsProps) 
               Ready to elevate your project with certified timber craftsmanship?
             </h3>
             <p className="text-xs sm:text-sm text-stone-300 mb-6 font-sans">
-              Request a physical sample box, detailed technical specification sheet, or schedule an architect consultation.
+              Request a physical sample box, detailed technical specification sheet, or inquire with our team.
             </p>
             <button
               onClick={() => onOpenConsultation('Testimonial Page CTA')}

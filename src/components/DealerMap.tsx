@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Dealer } from '../data/dealersData';
-import { Phone, Mail, MapPin, X, Copy, Check, Navigation, ShieldCheck } from 'lucide-react';
+import { Phone, MapPin, X, Copy, Check, Navigation, ShieldCheck } from 'lucide-react';
 
 interface DealerMapProps {
   dealers: Dealer[];
@@ -176,29 +176,17 @@ export default function DealerMap({
           <div className="space-y-2.5 text-xs text-stone-700">
             <div className="flex items-start gap-2">
               <span className="font-bold text-stone-900 shrink-0 w-16">Contact:</span>
-              <span className="font-semibold text-stone-800">{selectedDealer.contactPerson}</span>
-            </div>
-
-            <div className="flex items-start gap-2">
-              <span className="font-bold text-stone-900 shrink-0 w-16">Phone:</span>
-              <a
-                href={`tel:${selectedDealer.phone}`}
-                className="font-bold text-[#1a2e68] hover:underline flex items-center gap-1"
-              >
-                <Phone className="w-3 h-3 text-[#b38e5d]" />
-                {selectedDealer.phone}
-              </a>
-            </div>
-
-            <div className="flex items-start gap-2">
-              <span className="font-bold text-stone-900 shrink-0 w-16">Email:</span>
-              <a
-                href={`mailto:${selectedDealer.email}`}
-                className="font-medium text-stone-700 hover:text-[#1a2e68] truncate flex items-center gap-1"
-              >
-                <Mail className="w-3 h-3 text-stone-400 shrink-0" />
-                <span className="truncate">{selectedDealer.email}</span>
-              </a>
+              {selectedDealer.phone ? (
+                <a
+                  href={`tel:${selectedDealer.phone}`}
+                  className="font-bold text-[#1a2e68] hover:underline flex items-center gap-1"
+                >
+                  <Phone className="w-3 h-3 text-[#b38e5d]" />
+                  {selectedDealer.contactPerson ? `${selectedDealer.contactPerson} (${selectedDealer.phone})` : selectedDealer.phone}
+                </a>
+              ) : (
+                <span className="font-semibold text-stone-800">{selectedDealer.contactPerson || 'N/A'}</span>
+              )}
             </div>
 
             <div className="flex items-start gap-2">

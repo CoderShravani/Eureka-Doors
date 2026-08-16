@@ -286,7 +286,7 @@ export const VALUE_PROPS: ValueProp[] = [
   },
   {
     title: 'Long Warranty',
-    description: 'Uncompromising performance backed by a comprehensive product warranty up to 10 full years.',
+    description: 'Uncompromising performance backed by a comprehensive product warranty up to 5 full years.',
     iconName: 'Calendar'
   },
   {
@@ -403,7 +403,7 @@ export const WOODEN_LAMINATE_DOORS: LaminateDoorProduct[] = [
     finish: 'Cream Birch with Left Dark Walnut Accent Strip',
     designStyle: 'side-accent',
     description: 'Modern asymmetrical designer laminate door showcasing a soft cream birch main body offset by a dark walnut vertical left side strip.',
-    keySpecs: ['Asymmetrical Dark Side Accent', 'Silky Smooth Tactile Laminate', 'Waterproof Edge Banding', '10 Year Structural Guarantee']
+    keySpecs: ['Asymmetrical Dark Side Accent', 'Silky Smooth Tactile Laminate', 'Waterproof Edge Banding', '5 Year Structural Guarantee']
   }
 ];
 

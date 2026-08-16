@@ -27,6 +27,7 @@ export default function Header({ onNavigate, onOpenConsultation }: HeaderProps) 
     { name: 'Architects Hub', id: 'architects-hub' },
     { name: 'Dealer Network', id: 'dealer-network' },
     { name: 'Our Clients', id: 'our-clients' },
+    { name: 'Careers', id: 'careers' },
     { name: 'About Us', id: 'about-us' },
     { name: 'Contact', id: 'contact' },
   ];
@@ -241,6 +242,12 @@ export default function Header({ onNavigate, onOpenConsultation }: HeaderProps) 
                   className="text-xs font-bold text-stone-800 text-left px-2"
                 >
                   Our Clients
+                </button>
+                <button
+                  onClick={() => handleItemClick('careers')}
+                  className="text-xs font-bold text-stone-800 text-left px-2"
+                >
+                  Careers
                 </button>
                 <button
                   onClick={() => handleItemClick('about-us')}

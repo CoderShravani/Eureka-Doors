@@ -282,7 +282,6 @@ export default function AboutUs({ onOpenConsultation, onNavigateHome, onNavigate
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#b38e5d]/15 border border-[#b38e5d]/30 text-[#967448] text-xs font-bold uppercase tracking-widest mb-6 shadow-sm"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#b38e5d]" />
               <span>FACTORY AT KHED-SHIVAPUR, PUNE • ESTD 2000</span>
             </motion.div>
 
@@ -314,7 +313,7 @@ export default function AboutUs({ onOpenConsultation, onNavigateHome, onNavigate
                 onClick={() => onOpenConsultation('About Us Page Hero')}
                 className="px-6 py-3.5 bg-[#b38e5d] text-white rounded-xl font-bold text-xs sm:text-sm tracking-wider uppercase hover:bg-[#967448] transition-all shadow-lg hover:shadow-xl hover:shadow-[#b38e5d]/20"
               >
-                Schedule Khed-Shivapur Factory Visit
+                Inquire & Request Catalog
               </button>
               <button
                 onClick={() => onNavigate('products')}
@@ -928,37 +927,7 @@ export default function AboutUs({ onOpenConsultation, onNavigateHome, onNavigate
         </div>
       </section>
 
-      {/* Bottom CTA Banner - Light Theme */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="p-8 sm:p-12 bg-gradient-to-r from-amber-50 via-stone-50 to-amber-100/60 text-stone-900 rounded-3xl shadow-xl relative overflow-hidden text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-8 border border-stone-200">
-          <div className="max-w-2xl">
-            <span className="text-xs font-bold text-[#b38e5d] uppercase tracking-widest block mb-2">
-              BUILD WITH EUREKA QUALITY
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 leading-tight">
-              Visit our Khed-Shivapur Industrial Facility or schedule an architect consultation.
-            </h3>
-            <p className="text-xs sm:text-sm text-stone-600 mt-2 font-sans">
-              Request sample kits, technical IS test certificates, or talk directly with our engineering team in Pune.
-            </p>
-          </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <button
-              onClick={() => onOpenConsultation('About Us Bottom CTA')}
-              className="px-6 py-3.5 bg-[#b38e5d] text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#967448] transition-all shadow-md hover:shadow-lg"
-            >
-              Request Architect Sample Kit
-            </button>
-            <button
-              onClick={() => onNavigate('dealer-network')}
-              className="px-6 py-3.5 bg-white text-stone-800 hover:bg-stone-50 rounded-xl font-bold text-xs uppercase tracking-wider border border-stone-300 transition-all shadow-sm"
-            >
-              Locate Dealer Network
-            </button>
-          </div>
-        </div>
-      </section>
 
     </div>
   );

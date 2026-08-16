@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Download, Sparkles, ChevronLeft, ChevronRight as ChevronRightIcon } from 'lucide-react';
+import { ArrowRight, Download, ChevronLeft, ChevronRight as ChevronRightIcon } from 'lucide-react';
 
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
@@ -60,7 +60,6 @@ export default function Hero({ onNavigate, onOpenConsultation }: HeroProps) {
               <span className="text-[11px] font-bold tracking-[0.25em] text-[#b38e5d] uppercase">
                 Since Generations
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-[#b38e5d] animate-pulse" />
             </motion.div>
 
             <motion.div
@@ -120,7 +119,7 @@ export default function Hero({ onNavigate, onOpenConsultation }: HeroProps) {
                 <span className="text-[10px] uppercase tracking-wider font-semibold text-stone-400">Water Resistant</span>
               </div>
               <div className="border-l border-stone-200 pl-6">
-                <span className="block text-xl font-bold text-stone-900">10 Years</span>
+                <span className="block text-xl font-bold text-stone-900">5 Years</span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold text-stone-400">Solid Warranty</span>
               </div>
             </motion.div>

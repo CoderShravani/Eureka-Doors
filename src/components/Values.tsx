@@ -5,7 +5,7 @@ export default function Values() {
     { title: 'Premium Materials', sub: 'Finest Quality', icon: <Award className="w-5 h-5 text-[#b38e5d]" /> },
     { title: 'Water Resistant', sub: '100% Protection', icon: <Droplet className="w-5 h-5 text-[#b38e5d]" /> },
     { title: 'Termite Proof', sub: 'Long Lasting', icon: <ShieldCheck className="w-5 h-5 text-[#b38e5d]" /> },
-    { title: 'Long Warranty', sub: 'Up to 10 Years', icon: <Calendar className="w-5 h-5 text-[#b38e5d]" /> },
+    { title: 'Long Warranty', sub: 'Up to 5 Years', icon: <Calendar className="w-5 h-5 text-[#b38e5d]" /> },
     { title: 'Made in India', sub: 'Proudly Indian', icon: <Heart className="w-5 h-5 text-[#b38e5d]" /> },
     { title: 'Customization', sub: 'Made For You', icon: <Settings className="w-5 h-5 text-[#b38e5d]" /> },
   ];

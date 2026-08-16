@@ -1,15 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, MapPin, Phone, Mail, ShieldCheck, ArrowLeft, Building2, Check, Copy, ChevronDown, ChevronUp, Navigation, Store, Sparkles, ChevronRight, RotateCcw } from 'lucide-react';
+import { Search, MapPin, Phone, ShieldCheck, ArrowLeft, Building2, Check, Copy, ChevronDown, ChevronUp, Navigation, Store, Sparkles, ChevronRight, RotateCcw } from 'lucide-react';
 import { DEALERS_DATA, ALL_CITIES, Dealer } from '../data/dealersData';
 import DealerMap from './DealerMap';
 
 interface DealerNetworkProps {
   onOpenConsultation: (prefillInfo?: string) => void;
   onNavigateHome?: () => void;
+  onNavigate?: (id: string) => void;
 }
 
-export default function DealerNetwork({ onOpenConsultation, onNavigateHome }: DealerNetworkProps) {
+export default function DealerNetwork({ onOpenConsultation, onNavigateHome, onNavigate }: DealerNetworkProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCity, setSelectedCity] = useState<string>('ALL');
   const [selectedDealer, setSelectedDealer] = useState<Dealer | null>(DEALERS_DATA[0]);
@@ -48,7 +49,7 @@ export default function DealerNetwork({ onOpenConsultation, onNavigateHome }: De
   }, [cityCounts]);
 
   const handleCopyDealer = (dealer: Dealer) => {
-    const text = `${dealer.name}\nContact: ${dealer.contactPerson}\nPhone: ${dealer.phone}\nEmail: ${dealer.email}\nAddress: ${dealer.address}`;
+    const text = `${dealer.name}\nContact: ${dealer.contactPerson}\nPhone: ${dealer.phone}\nAddress: ${dealer.address}`;
     navigator.clipboard.writeText(text);
     setCopiedId(dealer.id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -237,15 +238,6 @@ export default function DealerNetwork({ onOpenConsultation, onNavigateHome }: De
                           </a>
                         </div>
 
-                        {/* Email Id */}
-                        <div className="flex items-center gap-1.5">
-                          <Mail className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                          <span className="text-stone-500 font-semibold">Email Id:</span>
-                          <a href={`mailto:${dealer.email}`} className="text-stone-800 truncate hover:underline">
-                            {dealer.email}
-                          </a>
-                        </div>
-
                         {/* District & State */}
                         <div className="flex items-start gap-1.5">
                           <Navigation className="w-3.5 h-3.5 text-[#b38e5d] shrink-0 mt-0.5" />
@@ -334,10 +326,9 @@ export default function DealerNetwork({ onOpenConsultation, onNavigateHome }: De
           </div>
 
           <button
-            onClick={() => onOpenConsultation('Dealership Partnership Inquiry')}
-            className="px-6 py-3.5 bg-[#b38e5d] hover:bg-[#9c794a] text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer"
+            onClick={() => onNavigate ? onNavigate('become-a-dealer') : onOpenConsultation('Dealership Partnership Inquiry')}
+            className="px-6 py-3.5 bg-[#b38e5d] hover:bg-[#9c794a] text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all shadow-md shrink-0 cursor-pointer"
           >
-            <Sparkles className="w-4 h-4 text-white" />
             <span>Apply for Dealership</span>
           </button>
         </div>
