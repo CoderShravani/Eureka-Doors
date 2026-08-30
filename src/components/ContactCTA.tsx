@@ -83,7 +83,7 @@ export default function ContactCTA({ isModalMode = false, onCloseModal }: Contac
                 Need <span className="italic font-serif font-normal text-stone-700">Custom</span> Doors?
               </h2>
               <p className="text-xs text-stone-500">
-                Share your specifications, and our engineering team will provide a customized CAD design layout and quotation within 24 hours.
+                Share your specifications, and our engineering team will provide a quotation within 24 hours.
               </p>
             </div>
 

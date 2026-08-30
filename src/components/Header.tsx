@@ -200,16 +200,10 @@ export default function Header({ onNavigate, onOpenConsultation }: HeaderProps) 
               
               {/* Product Categories Section */}
               <div>
-                <div className="flex items-center justify-between px-1 mb-2.5">
+                <div className="px-1 mb-2.5">
                   <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider">
                     Product Categories
                   </span>
-                  <button
-                    onClick={() => handleItemClick('products')}
-                    className="text-[11px] font-semibold text-[#b38e5d] hover:underline"
-                  >
-                    View All Products →
-                  </button>
                 </div>
 
                 <div className="space-y-2">
