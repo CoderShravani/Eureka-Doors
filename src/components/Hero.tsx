@@ -94,13 +94,16 @@ export default function Hero({ onNavigate, onOpenConsultation }: HeroProps) {
                 EXPLORE COLLECTION
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200" />
               </button>
-              <button
-                onClick={() => onNavigate('downloads')}
-                className="px-7 py-4 bg-white hover:bg-stone-50 text-stone-800 border border-stone-200 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+              <a
+                href="/Eureka_Brochure.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-7 py-4 bg-white hover:bg-stone-50 text-stone-800 border border-stone-200 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-2xs hover:border-[#b38e5d]"
+                id="hero-download-catalogue-btn"
               >
-                DOWNLOAD CATALOGUE
+                <span>DOWNLOAD CATALOGUE</span>
                 <Download className="w-4 h-4 text-[#b38e5d]" />
-              </button>
+              </a>
             </motion.div>
 
             {/* Trust Accents */}
