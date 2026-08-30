@@ -261,7 +261,7 @@ export default function App() {
         </svg>
       ),
       action: () => {
-        window.open('https://wa.me/919811054101?text=Hello%20Eureka%20Doors%2C%20I%20am%20interested%20in%20premium%20custom%20doors.', '_blank');
+        window.open('https://wa.me/918888784444?text=Hello%20Eureka%20Doors%2C%20I%20am%20interested%20in%20your%20products.', '_blank');
       }
     }
   ];

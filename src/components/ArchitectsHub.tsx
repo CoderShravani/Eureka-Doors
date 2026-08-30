@@ -10,7 +10,6 @@ import {
   X, 
   Share2, 
   Check, 
-  Sparkles,
   Droplet,
   Scissors,
   Wrench,
@@ -451,8 +450,7 @@ export default function ArchitectsHub({ onNavigateHome }: ArchitectsHubProps) {
           </div>
 
           <div className="flex items-center gap-2 text-xs">
-            <span className="px-3 py-1 rounded-full bg-[#b38e5d]/10 text-[#8f6d3f] border border-[#b38e5d]/20 font-semibold flex items-center gap-1.5 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#b38e5d]" />
+            <span className="px-3 py-1 rounded-full bg-[#b38e5d]/10 text-[#8f6d3f] border border-[#b38e5d]/20 font-semibold flex items-center shadow-2xs">
               <span className="hidden sm:inline">IS: 2202 &amp; IS: 710 Industrial Standards</span>
               <span className="sm:hidden">IS: 2202 &amp; 710</span>
             </span>
