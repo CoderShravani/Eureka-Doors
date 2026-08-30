@@ -17,6 +17,7 @@ import PlywoodCatalog from './components/PlywoodCatalog';
 import DealerNetwork from './components/DealerNetwork';
 import OurClients from './components/OurClients';
 import AboutUs from './components/AboutUs';
+import ArchitectsHub from './components/ArchitectsHub';
 import Values from './components/Values';
 import Testimonials from './components/Testimonials';
 import ContactCTA from './components/ContactCTA';
@@ -27,7 +28,7 @@ import Footer from './components/Footer';
 import ToastContainer from './components/ToastContainer';
 import SEOHead from './components/SEOHead';
 
-type PageView = 'home' | 'wooden-laminate-doors' | 'post-forming-doors' | 'wooden-flush-doors' | 'wooden-molded-doors' | 'pvc-panel-doors' | 'pvc-flush-doors' | 'theme-doors' | 'frames' | 'plywood' | 'dealer-network' | 'become-a-dealer' | 'our-clients' | 'careers' | 'about-us' | 'contact';
+type PageView = 'home' | 'wooden-laminate-doors' | 'post-forming-doors' | 'wooden-flush-doors' | 'wooden-molded-doors' | 'pvc-panel-doors' | 'pvc-flush-doors' | 'theme-doors' | 'frames' | 'plywood' | 'architects-hub' | 'dealer-network' | 'become-a-dealer' | 'our-clients' | 'careers' | 'about-us' | 'contact';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<PageView>('home');
@@ -137,6 +138,19 @@ export default function App() {
       sectionId === 'plywood-page'
     ) {
       setCurrentView('plywood');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // If navigating to Architects Hub specifically
+    if (
+      sectionId === 'architects-hub' ||
+      sectionId === 'architect-hub' ||
+      sectionId === 'architects' ||
+      sectionId === 'architect' ||
+      sectionId === 'architects-hub-page'
+    ) {
+      setCurrentView('architects-hub');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -427,6 +441,23 @@ export default function App() {
               <PlywoodCatalog 
                 onOpenConsultation={handleOpenConsultation} 
                 onNavigateHome={() => handleScrollToSection('home')}
+              />
+            </motion.div>
+          )}
+
+          {currentView === 'architects-hub' && (
+            <motion.div
+              key="architects-hub"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+            >
+              {/* Dedicated Separate Page View for Architect's Hub & Specification Portal */}
+              <ArchitectsHub 
+                onOpenConsultation={handleOpenConsultation} 
+                onNavigateHome={() => handleScrollToSection('home')}
+                onNavigate={handleScrollToSection}
               />
             </motion.div>
           )}

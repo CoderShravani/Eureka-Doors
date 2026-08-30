@@ -65,6 +65,12 @@ const META_CONFIGS: Record<string, { title: string; description: string; ogTitle
     ogTitle: 'Marine & Commercial Plywood Range | Eureka',
     keywords: 'Marine Plywood, BWP Grade Plywood, IS 710 Plywood, Commercial Plywood'
   },
+  'architects-hub': {
+    title: "Architect's Hub | Specifications, CAD Drawings & Showcase | Eureka Doors",
+    description: 'Explore high-resolution architectural installations, technical sectional drawings, and material specifications for architects, interior designers, and project consultants.',
+    ogTitle: "Architect's Hub & Specification Portal | Eureka Doors",
+    keywords: "Architects Hub, Interior Design Doors, Architectural Doors, Eureka Specifications, CAD BIM Models"
+  },
   'dealer-network': {
     title: 'Authorised Dealer Network | Find Eureka Distributors Near You',
     description: 'Locate 115+ authorised Eureka distributors and dealers across India with 100% genuine guaranteed products.',
