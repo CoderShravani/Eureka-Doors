@@ -571,17 +571,25 @@ export default function AboutUs({ onOpenConsultation, onNavigateHome, onNavigate
               >
                 {[
                   { id: 'overview', title: 'Khed-Shivapur Factory & Infrastructure', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800' },
-                  { id: 'craftsmanship', title: 'Precision Engineering', image: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800' },
+                  { id: 'craftsmanship', title: 'Precision Engineering', image: '/precision.jpg' },
                   { id: 'sustainability', title: 'Green Forestry', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800' },
-                  { id: 'certifications', title: 'BIS & IS Certifications', image: 'https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=800' }
+                  { id: 'certifications', title: 'BIS & IS Certifications', image: '/certicate.jpg' }
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}
                     whileHover={{ y: -5, scale: 1.05 }}
                     onClick={() => setActiveInfraTab(item.id as any)}
-                    className="group cursor-pointer rounded-3xl overflow-hidden shadow-md border border-stone-200 relative aspect-square"
+                    className={`group cursor-pointer rounded-3xl overflow-hidden shadow-md border border-stone-200 relative aspect-square ${
+                      item.id === 'certifications' ? 'bg-[#f7f5f0]' : 'bg-stone-100'
+                    }`}
                   >
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className={`w-full h-full transition-transform duration-700 group-hover:scale-110 ${
+                        item.id === 'certifications' ? 'object-contain p-4' : 'object-cover'
+                      }`} 
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
                       <h4 className="text-lg font-serif font-bold text-white leading-tight">{item.title}</h4>
@@ -642,7 +650,7 @@ export default function AboutUs({ onOpenConsultation, onNavigateHome, onNavigate
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white p-8 sm:p-12 rounded-3xl shadow-xl border border-stone-200">
                   <div className="lg:col-span-6 order-last lg:order-first">
                     <img 
-                      src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800" 
+                      src="/precision.jpg" 
                       alt="Precision Engineering" 
                       className="rounded-2xl shadow-lg object-cover w-full h-80 border border-stone-200"
                     />
@@ -821,21 +829,38 @@ export default function AboutUs({ onOpenConsultation, onNavigateHome, onNavigate
             </p>
           </div>
 
-          {/* Year Buttons */}
-          <div className="flex items-center justify-center gap-2 overflow-x-auto pb-4 scrollbar-none mb-10">
-            {milestones.map((m, idx) => (
-              <button
-                key={m.year}
-                onClick={() => setActiveMilestoneIndex(idx)}
-                className={`px-5 py-2.5 rounded-2xl font-bold text-xs transition-all whitespace-nowrap ${
-                  idx === activeMilestoneIndex
-                    ? 'bg-[#b38e5d] text-white shadow-md scale-105'
-                    : 'bg-stone-100 text-stone-600 hover:text-stone-900 hover:bg-stone-200/80'
-                }`}
-              >
-                {m.year}
-              </button>
-            ))}
+          {/* Interactive Timeline on a Straight Line */}
+          <div className="relative max-w-4xl mx-auto mb-12 px-4">
+            {/* Straight Horizontal Connecting Line */}
+            <div className="absolute top-1/2 left-8 right-8 h-[2px] -translate-y-1/2 bg-stone-200 pointer-events-none hidden sm:block z-0" />
+            
+            {/* Progress line filling up to active index on desktop */}
+            <div 
+              className="absolute top-1/2 left-8 h-[2px] -translate-y-1/2 bg-[#b38e5d] pointer-events-none hidden sm:block z-0 transition-all duration-300"
+              style={{
+                width: `calc(${(activeMilestoneIndex / (milestones.length - 1)) * 100}% - 4rem)`,
+              }}
+            />
+
+            {/* Year Buttons along the straight line */}
+            <div className="relative z-10 flex items-center justify-between gap-3 overflow-x-auto py-3 px-2 scrollbar-none">
+              {milestones.map((m, idx) => {
+                const isActive = idx === activeMilestoneIndex;
+                return (
+                  <button
+                    key={m.year}
+                    onClick={() => setActiveMilestoneIndex(idx)}
+                    className={`relative px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition-all whitespace-nowrap cursor-pointer select-none ${
+                      isActive
+                        ? 'bg-[#b38e5d] text-white shadow-md scale-105 ring-4 ring-[#b38e5d]/20'
+                        : 'bg-stone-100 text-stone-700 hover:text-stone-900 hover:bg-stone-200/90'
+                    }`}
+                  >
+                    {m.year}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Active Milestone Card */}

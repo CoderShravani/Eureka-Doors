@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, ShieldCheck, Droplets, Layers, Award } from 'lucide-react';
 
 interface DoorVideoModalProps {
   isOpen: boolean;
@@ -167,6 +167,55 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
                 className="h-7 sm:h-9 w-auto object-contain"
               />
             </div>
+          </div>
+
+          {/* Subtle Feature Highlights Overlay on Left Side */}
+          <div
+            className="absolute z-20 left-4 sm:left-6 top-[38%] -translate-y-1/2 flex flex-col gap-2.5 max-w-[210px] sm:max-w-[240px] pointer-events-none"
+            id="video-features-overlay"
+          >
+            {[
+              {
+                icon: ShieldCheck,
+                title: 'Termite & Borer Proof',
+                desc: 'Lifetime wood immunity',
+              },
+              {
+                icon: Droplets,
+                title: '100% Boiling Waterproof',
+                desc: 'IS:710 Marine standard',
+              },
+              {
+                icon: Layers,
+                title: 'Calibrated Smooth Finish',
+                desc: 'Zero-warp engineered core',
+              },
+              {
+                icon: Award,
+                title: '25-Year Guarantee',
+                desc: 'Factory certified quality',
+              },
+            ].map((feat, i) => (
+              <motion.div
+                key={feat.title}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35 + i * 0.18, duration: 0.5, ease: 'easeOut' }}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-black/45 backdrop-blur-md border border-white/15 text-white shadow-lg"
+              >
+                <div className="p-1.5 rounded-lg bg-[#b38e5d]/25 text-[#dfbe91] shrink-0 border border-[#b38e5d]/30">
+                  <feat.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] sm:text-xs font-semibold leading-tight text-white/95 truncate">
+                    {feat.title}
+                  </p>
+                  <p className="text-[9px] sm:text-[10px] text-stone-300 leading-tight truncate">
+                    {feat.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           {/* Discreet Auto-Hiding Floating Controls */}
