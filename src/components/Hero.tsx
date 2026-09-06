@@ -5,6 +5,7 @@ import { ArrowRight, Download, ChevronLeft, ChevronRight as ChevronRightIcon } f
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
   onOpenConsultation: () => void;
+  onExploreCollection?: () => void;
 }
 
 const heroImages = [
@@ -14,7 +15,7 @@ const heroImages = [
   '/door4.jpeg'
 ];
 
-export default function Hero({ onNavigate, onOpenConsultation }: HeroProps) {
+export default function Hero({ onNavigate, onOpenConsultation, onExploreCollection }: HeroProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -88,7 +89,13 @@ export default function Hero({ onNavigate, onOpenConsultation }: HeroProps) {
               id="hero-cta-buttons"
             >
               <button
-                onClick={() => onNavigate('products')}
+                onClick={() => {
+                  if (onExploreCollection) {
+                    onExploreCollection();
+                  } else {
+                    onNavigate('products');
+                  }
+                }}
                 className="px-7 py-4 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-[#b38e5d] transition-all duration-300 shadow-md shadow-stone-950/10 flex items-center justify-center gap-2 group"
               >
                 EXPLORE COLLECTION

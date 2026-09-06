@@ -27,12 +27,14 @@ import BecomeADealer from './components/BecomeADealer';
 import Footer from './components/Footer';
 import ToastContainer from './components/ToastContainer';
 import SEOHead from './components/SEOHead';
+import DoorVideoModal from './components/DoorVideoModal';
 
 type PageView = 'home' | 'wooden-laminate-doors' | 'post-forming-doors' | 'wooden-flush-doors' | 'wooden-molded-doors' | 'pvc-panel-doors' | 'pvc-flush-doors' | 'theme-doors' | 'frames' | 'plywood' | 'architects-hub' | 'dealer-network' | 'become-a-dealer' | 'our-clients' | 'careers' | 'about-us' | 'contact';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<PageView>('home');
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isCollectionVideoOpen, setIsCollectionVideoOpen] = useState(false);
 
   // Smooth scroll & page navigation handler
   const handleScrollToSection = (sectionId: string) => {
@@ -250,6 +252,17 @@ export default function App() {
     setIsConsultationOpen(true);
   };
 
+  // Open Door Collection Video Modal
+  const handleOpenCollectionVideo = () => {
+    setIsCollectionVideoOpen(true);
+  };
+
+  // Close Door Collection Video Modal and navigate to products categories
+  const handleFinishCollectionVideo = () => {
+    setIsCollectionVideoOpen(false);
+    handleScrollToSection('products');
+  };
+
   // Floating widgets array matching reference image side rail
   const floatingWidgets = [
     {
@@ -285,7 +298,11 @@ export default function App() {
               transition={{ duration: 0.25, ease: 'easeInOut' }}
             >
               {/* Hero Banner */}
-              <Hero onNavigate={handleScrollToSection} onOpenConsultation={handleOpenConsultation} />
+              <Hero
+                onNavigate={handleScrollToSection}
+                onOpenConsultation={handleOpenConsultation}
+                onExploreCollection={handleOpenCollectionVideo}
+              />
 
               {/* Client Showcase (Mappe of Certified eurekaindia.com Clients) */}
               <Clients />
@@ -619,6 +636,13 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Door Video Showcase Modal (Plays when clicking Explore Collection) */}
+      <DoorVideoModal
+        isOpen={isCollectionVideoOpen}
+        onClose={() => setIsCollectionVideoOpen(false)}
+        onFinished={handleFinishCollectionVideo}
+      />
 
       {/* Toast Notification Container */}
       <ToastContainer />
