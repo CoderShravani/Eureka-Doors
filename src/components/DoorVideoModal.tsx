@@ -151,6 +151,24 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
             className="relative z-10 w-full h-full max-w-full max-h-full object-contain md:object-cover object-center cursor-pointer shadow-2xl"
           />
 
+          {/* Eureka logo badge with crisp white background for high clarity */}
+          <div
+            className="absolute z-20 pointer-events-none transition-opacity duration-300"
+            style={{
+              top: 'max(1rem, env(safe-area-inset-top, 1rem))',
+              left: 'max(1rem, env(safe-area-inset-left, 1rem))',
+            }}
+            id="video-eureka-logo"
+          >
+            <div className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-white shadow-xl border border-stone-200/80 flex items-center justify-center">
+              <img
+                src="/Eureka_logo.png"
+                alt="Eureka Logo"
+                className="h-7 sm:h-9 w-auto object-contain"
+              />
+            </div>
+          </div>
+
           {/* Discreet Auto-Hiding Floating Controls */}
           <div
             className={`absolute z-20 flex items-center gap-2 transition-opacity duration-500 ease-out ${
