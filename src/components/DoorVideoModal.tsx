@@ -29,22 +29,20 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
       finishedTriggeredRef.current = false;
       resetControlsTimer();
 
-      // Attempt autoplay
-      const timer = setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.currentTime = 0;
-          const playPromise = videoRef.current.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              // If unmuted autoplay is blocked by browser policy, play muted
-              if (videoRef.current) {
-                videoRef.current.muted = true;
-                videoRef.current.play().catch(() => {});
-              }
-            });
-          }
+      // Immediate playback to maintain mobile user-gesture context
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // If browser blocks unmuted playback on mobile, fallback to muted autoplay
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+          });
         }
-      }, 100);
+      }
 
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -54,7 +52,6 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
       window.addEventListener('keydown', handleKeyDown);
 
       return () => {
-        clearTimeout(timer);
         if (controlsTimeoutRef.current) {
           clearTimeout(controlsTimeoutRef.current);
         }
@@ -114,10 +111,28 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
           }}
           onMouseMove={resetControlsTimer}
           onTouchStart={resetControlsTimer}
-          className="fixed inset-0 z-50 w-screen h-screen bg-[#0f0e0c] overflow-hidden flex items-center justify-center select-none"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            width: '100vw',
+            height: '100dvh',
+            zIndex: 9999,
+          }}
+          className="fixed inset-0 z-[9999] w-screen h-screen bg-[#0a0908] overflow-hidden select-none flex items-center justify-center"
           id="door-video-modal"
         >
-          {/* Fullscreen Video with natural object cover */}
+          {/* Ambient blurred backdrop video filling the entire mobile screen so there are never empty bars */}
+          <video
+            src="/door_video.mp4"
+            playsInline
+            autoPlay
+            muted
+            loop
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover blur-2xl scale-125 opacity-40 pointer-events-none"
+          />
+
+          {/* Foreground Video: 100% full uncropped frame with natural proportions (neither side wall nor top/bottom chopped, zero stretch) */}
           <video
             ref={videoRef}
             src="/door_video.mp4"
@@ -127,14 +142,24 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
             onEnded={handleEnded}
             onTimeUpdate={handleTimeUpdate}
             onClick={togglePlay}
-            className="w-full h-full object-cover cursor-pointer"
+            {...{
+              'webkit-playsinline': 'true',
+              'x5-playsinline': 'true',
+              'x5-video-player-type': 'h5',
+              'x5-video-player-fullscreen': 'true',
+            }}
+            className="relative z-10 w-full h-full max-w-full max-h-full object-contain md:object-cover object-center cursor-pointer shadow-2xl"
           />
 
           {/* Discreet Auto-Hiding Floating Controls */}
           <div
-            className={`absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-2.5 transition-opacity duration-500 ease-out ${
+            className={`absolute z-20 flex items-center gap-2 transition-opacity duration-500 ease-out ${
               showControls ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
+            style={{
+              top: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
+              right: 'max(0.75rem, env(safe-area-inset-right, 0.75rem))',
+            }}
             onMouseEnter={() => {
               if (controlsTimeoutRef.current) {
                 clearTimeout(controlsTimeoutRef.current);
@@ -145,17 +170,17 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
           >
             <button
               onClick={triggerFinish}
-              className="px-4 py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-medium transition-all shadow-xl flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+              className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-black/65 hover:bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-medium transition-all shadow-xl flex items-center gap-1.5 sm:gap-2 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Explore Categories</span>
-              <ArrowRight className="w-4 h-4 text-[#b38e5d]" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#b38e5d]" />
             </button>
             <button
               onClick={triggerFinish}
-              className="p-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-stone-300 hover:text-white transition-all shadow-xl hover:scale-105 active:scale-95"
+              className="p-1.5 sm:p-2 rounded-full bg-black/65 hover:bg-black/85 backdrop-blur-md border border-white/20 text-stone-300 hover:text-white transition-all shadow-xl hover:scale-105 active:scale-95"
               aria-label="Close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </motion.div>
