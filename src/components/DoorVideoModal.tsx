@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ArrowRight } from 'lucide-react';
 
@@ -11,10 +11,23 @@ interface DoorVideoModalProps {
 export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVideoModalProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const finishedTriggeredRef = useRef(false);
+  const [showControls, setShowControls] = useState(true);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resetControlsTimer = useCallback(() => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    controlsTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 1800);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
       finishedTriggeredRef.current = false;
+      resetControlsTimer();
 
       // Attempt autoplay
       const timer = setTimeout(() => {
@@ -42,10 +55,13 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
 
       return () => {
         clearTimeout(timer);
+        if (controlsTimeoutRef.current) {
+          clearTimeout(controlsTimeoutRef.current);
+        }
         window.removeEventListener('keydown', handleKeyDown);
       };
     }
-  }, [isOpen]);
+  }, [isOpen, resetControlsTimer]);
 
   const triggerFinish = () => {
     if (!finishedTriggeredRef.current) {
@@ -60,13 +76,22 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
 
   const handleTimeUpdate = () => {
     if (videoRef.current && videoRef.current.duration) {
-      if (videoRef.current.currentTime >= videoRef.current.duration - 0.08) {
+      const remainingTime = videoRef.current.duration - videoRef.current.currentTime;
+
+      // Soft ambient audio fade-out in final 0.6s
+      if (!videoRef.current.muted && videoRef.current.volume > 0 && remainingTime <= 0.6) {
+        videoRef.current.volume = Math.max(0, Math.min(1, remainingTime / 0.6));
+      }
+
+      // Finish seamlessly right as the final movement settles
+      if (remainingTime <= 0.08) {
         triggerFinish();
       }
     }
   };
 
   const togglePlay = () => {
+    resetControlsTimer();
     if (videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.play();
@@ -79,70 +104,61 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
   return (
     <AnimatePresence>
       {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.06 }}
+          transition={{
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          onMouseMove={resetControlsTimer}
+          onTouchStart={resetControlsTimer}
+          className="fixed inset-0 z-50 w-screen h-screen bg-[#0f0e0c] overflow-hidden flex items-center justify-center select-none"
           id="door-video-modal"
         >
-          {/* Dark backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={triggerFinish}
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
+          {/* Fullscreen Video with natural object cover */}
+          <video
+            ref={videoRef}
+            src="/door_video.mp4"
+            playsInline
+            autoPlay
+            preload="auto"
+            onEnded={handleEnded}
+            onTimeUpdate={handleTimeUpdate}
+            onClick={togglePlay}
+            className="w-full h-full object-cover cursor-pointer"
           />
 
-          {/* Modal Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-full max-w-4xl bg-stone-950 rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-800/80 overflow-hidden z-10 flex flex-col"
+          {/* Discreet Auto-Hiding Floating Controls */}
+          <div
+            className={`absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-2.5 transition-opacity duration-500 ease-out ${
+              showControls ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+            onMouseEnter={() => {
+              if (controlsTimeoutRef.current) {
+                clearTimeout(controlsTimeoutRef.current);
+              }
+              setShowControls(true);
+            }}
+            onMouseLeave={resetControlsTimer}
           >
-            {/* Minimal Top Header */}
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-stone-900/90 border-b border-stone-800">
-              <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-bold text-white tracking-wider uppercase">
-                  Eureka Doors Collection
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={triggerFinish}
-                  className="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-medium transition-colors flex items-center gap-1.5"
-                >
-                  <span>Skip to Categories</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#b38e5d]" />
-                </button>
-                <button
-                  onClick={triggerFinish}
-                  className="p-1.5 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800 transition-colors"
-                  aria-label="Close video"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Natural Video Player Display */}
-            <div className="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
-              <video
-                ref={videoRef}
-                src="/door_video.mp4"
-                playsInline
-                autoPlay
-                preload="auto"
-                onEnded={handleEnded}
-                onTimeUpdate={handleTimeUpdate}
-                onClick={togglePlay}
-                className="w-full h-full object-contain cursor-pointer"
-              />
-            </div>
-          </motion.div>
-        </div>
+            <button
+              onClick={triggerFinish}
+              className="px-4 py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-medium transition-all shadow-xl flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>Explore Categories</span>
+              <ArrowRight className="w-4 h-4 text-[#b38e5d]" />
+            </button>
+            <button
+              onClick={triggerFinish}
+              className="p-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 text-stone-300 hover:text-white transition-all shadow-xl hover:scale-105 active:scale-95"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
