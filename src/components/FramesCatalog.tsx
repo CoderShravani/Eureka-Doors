@@ -10,7 +10,7 @@ interface FramesCatalogProps {
 export default function FramesCatalog({ onOpenConsultation, onNavigateHome }: FramesCatalogProps) {
   const [isZoomOpen, setIsZoomOpen] = useState(false);
 
-  const defaultImage = 'public/FRAMES.jpg';
+  const defaultImage = '/FRAMES.jpg';
 
   const specifications = [
     'Solid Wood & Red Meranti Door Frames Available',
@@ -67,6 +67,12 @@ export default function FramesCatalog({ onOpenConsultation, onNavigateHome }: Fr
                 <img
                   src={defaultImage}
                   alt="Solid Wood Door Frame Detail"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== window.location.origin + '/frames.jpeg') {
+                      target.src = '/frames.jpeg';
+                    }
+                  }}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -161,6 +167,12 @@ export default function FramesCatalog({ onOpenConsultation, onNavigateHome }: Fr
               <img
                 src={defaultImage}
                 alt="Enlarged Frame Detail"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== window.location.origin + '/frames.jpeg') {
+                    target.src = '/frames.jpeg';
+                  }
+                }}
                 className="w-full h-full max-h-[85vh] object-contain mx-auto"
               />
             </motion.div>

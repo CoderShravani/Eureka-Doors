@@ -11,8 +11,8 @@ export default function PlywoodCatalog({ onOpenConsultation, onNavigateHome }: P
   const [selectedPlywood, setSelectedPlywood] = useState<boolean>(false);
   const [isZoomOpen, setIsZoomOpen] = useState(false);
 
-  // Default clean calibrated plywood stacked board image matching user's screenshot
-  const defaultPlywoodImage = 'public/PLYWOOD.jpg';
+  // Default calibrated plywood image served from root public directory
+  const defaultPlywoodImage = '/PLYWOOD.jpg';
 
   const specifications = [
     'Boiling Water Proof (BWP IS 710 Grade) & BWR Grade Marine Plywood',
@@ -82,6 +82,12 @@ export default function PlywoodCatalog({ onOpenConsultation, onNavigateHome }: P
                   <img
                     src={displayImage}
                     alt="Plywood Sheets"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src !== window.location.origin + '/plywood.jpeg') {
+                        target.src = '/plywood.jpeg';
+                      }
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
@@ -132,6 +138,12 @@ export default function PlywoodCatalog({ onOpenConsultation, onNavigateHome }: P
                   <img
                     src={displayImage}
                     alt="Plywood Board Detail"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src !== window.location.origin + '/plywood.jpeg') {
+                        target.src = '/plywood.jpeg';
+                      }
+                    }}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
 
@@ -232,6 +244,12 @@ export default function PlywoodCatalog({ onOpenConsultation, onNavigateHome }: P
               <img
                 src={displayImage}
                 alt="Enlarged Plywood Detail"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== window.location.origin + '/plywood.jpeg') {
+                    target.src = '/plywood.jpeg';
+                  }
+                }}
                 className="w-full h-full max-h-[85vh] object-contain mx-auto"
               />
             </motion.div>
