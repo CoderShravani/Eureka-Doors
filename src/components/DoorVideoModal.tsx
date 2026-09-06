@@ -132,28 +132,9 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
             className="absolute inset-0 w-full h-full object-cover blur-2xl scale-125 opacity-40 pointer-events-none"
           />
 
-          {/* Foreground Video: 100% full uncropped frame with natural proportions (neither side wall nor top/bottom chopped, zero stretch) */}
-          <video
-            ref={videoRef}
-            src="/door_video.mp4"
-            playsInline
-            autoPlay
-            preload="auto"
-            onEnded={handleEnded}
-            onTimeUpdate={handleTimeUpdate}
-            onClick={togglePlay}
-            {...{
-              'webkit-playsinline': 'true',
-              'x5-playsinline': 'true',
-              'x5-video-player-type': 'h5',
-              'x5-video-player-fullscreen': 'true',
-            }}
-            className="relative z-10 w-full h-full max-w-full max-h-full object-contain md:object-cover object-center cursor-pointer shadow-2xl"
-          />
-
           {/* Eureka logo badge with crisp white background for high clarity */}
           <div
-            className="absolute z-20 pointer-events-none transition-opacity duration-300"
+            className="absolute z-30 pointer-events-none transition-opacity duration-300"
             style={{
               top: 'max(1rem, env(safe-area-inset-top, 1rem))',
               left: 'max(1rem, env(safe-area-inset-left, 1rem))',
@@ -169,53 +150,80 @@ export default function DoorVideoModal({ isOpen, onClose, onFinished }: DoorVide
             </div>
           </div>
 
-          {/* Subtle Feature Highlights Overlay on Left Side */}
-          <div
-            className="absolute z-20 left-4 sm:left-6 top-[38%] -translate-y-1/2 flex flex-col gap-2.5 max-w-[210px] sm:max-w-[240px] pointer-events-none"
-            id="video-features-overlay"
-          >
-            {[
-              {
-                icon: ShieldCheck,
-                title: 'Termite & Borer Proof',
-                desc: 'Lifetime wood immunity',
-              },
-              {
-                icon: Droplets,
-                title: '100% Boiling Waterproof',
-                desc: 'IS:710 Marine standard',
-              },
-              {
-                icon: Layers,
-                title: 'Calibrated Smooth Finish',
-                desc: 'Zero-warp engineered core',
-              },
-              {
-                icon: Award,
-                title: '25-Year Guarantee',
-                desc: 'Factory certified quality',
-              },
-            ].map((feat, i) => (
-              <motion.div
-                key={feat.title}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35 + i * 0.18, duration: 0.5, ease: 'easeOut' }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-black/45 backdrop-blur-md border border-white/15 text-white shadow-lg"
+          {/* Foreground Video:
+              - Desktop (md:): w-full h-full object-cover (exact original desktop behavior)
+              - Mobile (<md): inside a centered 16:9 container so the feature badges align perfectly inside the video frame */}
+          <div className="relative z-10 w-full md:h-full flex items-center justify-center pointer-events-auto">
+            <div className="relative w-full aspect-video md:aspect-auto md:w-full md:h-full flex items-center justify-center">
+              <video
+                ref={videoRef}
+                src="/door_video.mp4"
+                playsInline
+                autoPlay
+                preload="auto"
+                onEnded={handleEnded}
+                onTimeUpdate={handleTimeUpdate}
+                onClick={togglePlay}
+                {...{
+                  'webkit-playsinline': 'true',
+                  'x5-playsinline': 'true',
+                  'x5-video-player-type': 'h5',
+                  'x5-video-player-fullscreen': 'true',
+                }}
+                className="w-full h-full object-contain md:object-cover object-center cursor-pointer shadow-2xl"
+              />
+
+              {/* Feature Highlights Overlay on Left Side:
+                  - Positioned inside the video's 16:9 boundary on mobile so all 4 badges are guaranteed to be 100% inside the video frame!
+                  - On desktop (md:): retains exact original desktop position & scale */}
+              <div
+                className="absolute z-20 left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 flex flex-col gap-1 sm:gap-2 md:gap-2.5 max-w-[130px] xs:max-w-[150px] sm:max-w-[210px] md:max-w-[240px] pointer-events-none"
+                id="video-features-overlay"
               >
-                <div className="p-1.5 rounded-lg bg-[#b38e5d]/25 text-[#dfbe91] shrink-0 border border-[#b38e5d]/30">
-                  <feat.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[11px] sm:text-xs font-semibold leading-tight text-white/95 truncate">
-                    {feat.title}
-                  </p>
-                  <p className="text-[9px] sm:text-[10px] text-stone-300 leading-tight truncate">
-                    {feat.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                {[
+                  {
+                    icon: ShieldCheck,
+                    title: 'Termite & Borer Proof',
+                    desc: 'Lifetime wood immunity',
+                  },
+                  {
+                    icon: Droplets,
+                    title: '100% Boiling Waterproof',
+                    desc: 'IS:710 Marine standard',
+                  },
+                  {
+                    icon: Layers,
+                    title: 'Calibrated Smooth Finish',
+                    desc: 'Zero-warp engineered core',
+                  },
+                  {
+                    icon: Award,
+                    title: '5-Year Guarantee',
+                    desc: 'Factory certified quality',
+                  },
+                ].map((feat, i) => (
+                  <motion.div
+                    key={feat.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.35 + i * 0.18, duration: 0.5, ease: 'easeOut' }}
+                    className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 px-2 py-1 sm:px-2.5 sm:py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-xl bg-black/55 md:bg-black/45 backdrop-blur-md border border-white/15 text-white shadow-lg"
+                  >
+                    <div className="p-1 sm:p-1.5 rounded-md sm:rounded-lg bg-[#b38e5d]/25 text-[#dfbe91] shrink-0 border border-[#b38e5d]/30">
+                      <feat.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[9px] sm:text-[11px] md:text-xs font-semibold leading-tight text-white/95 truncate">
+                        {feat.title}
+                      </p>
+                      <p className="text-[7.5px] sm:text-[9px] md:text-[10px] text-stone-300 leading-tight truncate">
+                        {feat.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Discreet Auto-Hiding Floating Controls */}
